@@ -1,4 +1,63 @@
 <div class="row" ng-controller="ContactsCtrl">
+
+<!-- Look for functions in app/contact/contacts.js -->
+<form ng-submit="addFormSubmit" ng-show="addForm">
+  <h3>Add Contact</h3>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>First Name:</label>
+      <input type="text" ng-model="fname" placeholder="First Name" required />
+    </div>
+    <div class="large-6 columns">
+      <label>Last Name:</label>
+      <input type="text" ng-model="lname" placeholder="Last Name" required />
+    </div>
+    <div class="large-6 columns">
+      <label>E-mail:</label>
+      <input type="text" ng-model="email" placeholder="E-mail" required />
+    </div>
+
+    <div class="large-6 columns">
+      <label>Company:</label>
+      <input type="text" ng-model="company" placeholder="Company" required />
+    </div>
+    <div class="large-6 columns">
+      <label>Work Phone:</label>
+      <input type="text" ng-model="work_phone" placeholder="Work Phone" required />
+    </div>
+
+    <div class="large-6 columns">
+      <label>Cell Phone:</label>
+      <input type="text" ng-model="cell_phone" placeholder="Cell Phone" />
+    </div>
+
+    <div class="large-12 columns">
+      <label>Street Address:</label>
+      <input type="text" ng-model="adress" placeholder="Street Address" required />
+    </div>
+
+    <div class="large-4 columns">
+      <label>City:</label>
+      <input type="text" ng-model="city" placeholder="City" required />
+    </div>
+    <div class="large-4 columns">
+      <label>State:</label>
+      <input type="text" ng-model="state" placeholder="State" required />
+    </div>
+    <div class="large-4 columns">
+      <label>Zip Code:</label>
+      <input type="text" ng-model="zip" placeholder="Zip Code" required />
+    </div>
+
+    <div class="small-4 small-centered columns">
+      <input type="submit" value="Add Contact" class="button success" />
+
+      <a class="button alert" ng-click="hideAddForm()">Cancel</a>
+    </div>
+
+  </div>
+</form>
+
   <div class="large-10 columns">
     <h3>Your Contacts ({{ contacts.length }})</h3>
     <table>
@@ -11,17 +70,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><a href="#">Jane Core</a></td>
-          <td>Umbrella Corp</td>
-          <td>jane@uc.co</td>
-          <td><a class="button tiny">Edit</a> <a class="button tiny alert">Delete</a></td>
+        <tr ng-repeat="contact in contacts">
+          <td><a href="#">{{ contact.fname }} {{ contact.lname }}</a></td>
+          <td>{{ contact.company }}</td>
+          <td>{{ contact.email }}</td>
+          <td><a class="button tiny" ng-click="showEditForm(contact)">Edit</a>
+              <a class="button tiny alert" ng-click="removeContact(contact)">Delete</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="small-12 large-2 columns">
-      <a class="button large">+</a>
+      <a class="button large" ng-click="showAddForm()"> + </a>
   </div>
 </div>
