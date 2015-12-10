@@ -7,6 +7,18 @@
   <a href="#" class="close">&times;</a>
 </div>
 
+<!-- Search Form -->
+<div class="row">
+  <div class="small-10 medium-8 large-7 small-centered columns">
+    <div class="small-3 columns">
+      <label for="right-label" class="right inline"><i class="fa fa-search"></i> Search</label>
+    </div>
+    <div class="small-9 columns">
+      <input type="text" id="right-label" placeholder="Name/E-mail/Company" ng-model="search" />
+    </div>
+  </div>
+</div>
+
 <!-- Show Contact -->
 <div class="row" ng-show="contactShow">
   <div class="small-10 medium-8 large-7 small-centered columns">
@@ -34,48 +46,58 @@
   <h3>Add Contact</h3>
   <div class="row">
     <div class="large-6 columns">
-      <label>First Name:</label>
+      <label>First Name:
       <input type="text" ng-model="fname" placeholder="First Name" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>Last Name:</label>
+      <label>Last Name:
       <input type="text" ng-model="lname" placeholder="Last Name" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>E-mail:</label>
+      <label>E-mail:
       <input type="text" ng-model="email" placeholder="E-mail" required />
+      </label>
     </div>
 
     <div class="large-6 columns">
-      <label>Company:</label>
+      <label>Company:
       <input type="text" ng-model="company" placeholder="Company" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>Work Phone:</label>
+      <label>Work Phone:
       <input type="text" ng-model="work_phone" placeholder="Work Phone" required />
+      </label>
     </div>
 
     <div class="large-6 columns">
-      <label>Cell Phone:</label>
+      <label>Cell Phone:
       <input type="text" ng-model="cell_phone" placeholder="Cell Phone" />
+      </label>
     </div>
 
     <div class="large-12 columns">
-      <label>Street Address:</label>
+      <label>Street Address:
       <input type="text" ng-model="street_address" placeholder="Street Address" required />
+      </label>
     </div>
 
     <div class="large-4 columns">
-      <label>City:</label>
+      <label>City:
       <input type="text" ng-model="city" placeholder="City" required />
+      </label>
     </div>
     <div class="large-4 columns">
-      <label>State:</label>
+      <label>State:
       <input type="text" ng-model="state" placeholder="State" required />
+      </label>
     </div>
     <div class="large-4 columns">
-      <label>Zip Code:</label>
+      <label>Zip Code:
       <input type="text" ng-model="zipcode" placeholder="Zip Code" required />
+      </label>
     </div>
 
     <div class="small-4 small-centered columns">
@@ -92,48 +114,58 @@
   <h3>Updating Contact:</h3>
   <div class="row">
     <div class="large-6 columns">
-      <label>First Name:</label>
+      <label>First Name:
       <input type="text" ng-model="fname" placeholder="First Name" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>Last Name:</label>
+      <label>Last Name:
       <input type="text" ng-model="lname" placeholder="Last Name" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>E-mail:</label>
+      <label>E-mail:
       <input type="text" ng-model="email" placeholder="E-mail" required />
+      </label>
     </div>
 
     <div class="large-6 columns">
-      <label>Company:</label>
+      <label>Company:
       <input type="text" ng-model="company" placeholder="Company" required />
+      </label>
     </div>
     <div class="large-6 columns">
-      <label>Work Phone:</label>
+      <label>Work Phone:
       <input type="text" ng-model="work_phone" placeholder="Work Phone" required />
+      </label>
     </div>
 
     <div class="large-6 columns">
-      <label>Cell Phone:</label>
+      <label>Cell Phone:
       <input type="text" ng-model="cell_phone" placeholder="Cell Phone" />
+      </label>
     </div>
 
     <div class="large-12 columns">
-      <label>Street Address:</label>
+      <label>Street Address:
       <input type="text" ng-model="street_address" placeholder="Street Address" required />
+      </label>
     </div>
 
     <div class="large-4 columns">
-      <label>City:</label>
+      <label>City:
       <input type="text" ng-model="city" placeholder="City" required />
+      </label>
     </div>
     <div class="large-4 columns">
-      <label>State:</label>
+      <label>State:
       <input type="text" ng-model="state" placeholder="State" required />
+      </label>
     </div>
     <div class="large-4 columns">
-      <label>Zip Code:</label>
+      <label>Zip Code:
       <input type="text" ng-model="zipcode" placeholder="Zip Code" required />
+      </label>
     </div>
 
     <div class="small-4 small-centered columns">
@@ -151,14 +183,23 @@
     <table>
       <thead>
         <tr>
-          <th width="200px">Name</th>
-          <th width="200px">Company</th>
-          <th width="25%">E-mail</th>
+          <th width="200px">Name
+            <span ng-click="order='fname'" class="fa fa-arrow-up"></span>
+            <span ng-click="order='-fname'" class="fa fa-arrow-down"></span>
+          </th>
+          <th width="200px">Company
+            <span ng-click="order='company'" class="fa fa-arrow-up"></span>
+            <span ng-click="order='-company'" class="fa fa-arrow-down"></span>
+          </th>
+          <th width="25%">E-mail
+            <span ng-click="order='email'" class="fa fa-arrow-up"></span>
+            <span ng-click="order='-email'" class="fa fa-arrow-down"></span>
+          </th>
           <th width="25%">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="contact in contacts">
+        <tr ng-repeat="contact in contacts | orderBy:order | filter:search">
           <td><a ng-click="showContact(contact); hideAddForm(); hideEditForm();">{{ contact.fname }} {{ contact.lname }}</a></td>
           <td>{{ contact.company }}</td>
           <td>{{ contact.email }}</td>

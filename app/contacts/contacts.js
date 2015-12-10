@@ -18,6 +18,10 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
   $scope.contacts = $firebaseArray(ref);
   console.log($scope.contacts);
 
+  // Search function
+  $scope.search = "";
+  $scope.order = "fname";
+
   // Show Form
   $scope.showAddForm = function() {
     $scope.addForm = true;
