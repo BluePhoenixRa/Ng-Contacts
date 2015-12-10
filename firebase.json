@@ -1,0 +1,9 @@
+{
+  "firebase": "ng-contacts-ra",
+  "public": "app",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
