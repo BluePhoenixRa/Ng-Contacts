@@ -1,7 +1,36 @@
+<!-- Look for functions in app/contact/contacts.js -->
 <div class="row" ng-controller="ContactsCtrl">
 
-<!-- Look for functions in app/contact/contacts.js -->
-<form ng-submit="addFormSubmit" ng-show="addForm">
+<!-- Show message when user has been added or deleted -->
+<div data-alert ng-show="msg" class="alert-box success radius">
+  {{msg}}
+  <a href="#" class="close">&times;</a>
+</div>
+
+<!-- Show Contact -->
+<div class="row" ng-show="contactShow">
+  <div class="small-10 medium-8 large-7 small-centered columns">
+
+    <div class="header panel">
+      <div class="sign">
+        <h1>{{ fname }} {{ lname }}</h1>
+      </div>
+        <strong>Company: </strong>{{ company }}<br />
+        <strong>E-mail: </strong>{{ email }}<br />
+        <strong>Work Phone: </strong>{{ work_phone }}<br />
+        <strong>Cell Phone: </strong>{{ cell_phone }}<br />
+        <strong>Address:</strong><br />
+        {{ street_address }}<br />
+        {{ city }}, {{ state }} {{ zipcode }}
+        <br />
+        <center><a class="button secondary tiny small-centered" ng-click="hideContactShow()"> Close </a></center>
+
+    </div>
+  </div>
+</div>
+
+<!-- Show Add New Contact Form -->
+<form ng-submit="addFormSubmit()" ng-show="addForm">
   <h3>Add Contact</h3>
   <div class="row">
     <div class="large-6 columns">
@@ -33,7 +62,7 @@
 
     <div class="large-12 columns">
       <label>Street Address:</label>
-      <input type="text" ng-model="adress" placeholder="Street Address" required />
+      <input type="text" ng-model="street_address" placeholder="Street Address" required />
     </div>
 
     <div class="large-4 columns">
@@ -46,17 +75,76 @@
     </div>
     <div class="large-4 columns">
       <label>Zip Code:</label>
-      <input type="text" ng-model="zip" placeholder="Zip Code" required />
+      <input type="text" ng-model="zipcode" placeholder="Zip Code" required />
     </div>
 
     <div class="small-4 small-centered columns">
-      <input type="submit" value="Add Contact" class="button success" />
+      <input type="submit" value="Add Contact" class="button success radius" />
 
-      <a class="button alert" ng-click="hideAddForm()">Cancel</a>
+      <a class="button alert radius" ng-click="hideAddForm()">Cancel</a>
     </div>
 
   </div>
 </form>
+
+<!-- Edit Contact -->
+<form ng-submit="editFormSubmit()" ng-show="editForm">
+  <h3>Updating Contact:</h3>
+  <div class="row">
+    <div class="large-6 columns">
+      <label>First Name:</label>
+      <input type="text" ng-model="fname" placeholder="First Name" required />
+    </div>
+    <div class="large-6 columns">
+      <label>Last Name:</label>
+      <input type="text" ng-model="lname" placeholder="Last Name" required />
+    </div>
+    <div class="large-6 columns">
+      <label>E-mail:</label>
+      <input type="text" ng-model="email" placeholder="E-mail" required />
+    </div>
+
+    <div class="large-6 columns">
+      <label>Company:</label>
+      <input type="text" ng-model="company" placeholder="Company" required />
+    </div>
+    <div class="large-6 columns">
+      <label>Work Phone:</label>
+      <input type="text" ng-model="work_phone" placeholder="Work Phone" required />
+    </div>
+
+    <div class="large-6 columns">
+      <label>Cell Phone:</label>
+      <input type="text" ng-model="cell_phone" placeholder="Cell Phone" />
+    </div>
+
+    <div class="large-12 columns">
+      <label>Street Address:</label>
+      <input type="text" ng-model="street_address" placeholder="Street Address" required />
+    </div>
+
+    <div class="large-4 columns">
+      <label>City:</label>
+      <input type="text" ng-model="city" placeholder="City" required />
+    </div>
+    <div class="large-4 columns">
+      <label>State:</label>
+      <input type="text" ng-model="state" placeholder="State" required />
+    </div>
+    <div class="large-4 columns">
+      <label>Zip Code:</label>
+      <input type="text" ng-model="zipcode" placeholder="Zip Code" required />
+    </div>
+
+    <div class="small-4 small-centered columns">
+      <input type="submit" value="Add Contact" class="button success radius" />
+
+      <a class="button alert radius" ng-click="hideAddForm()">Cancel</a>
+    </div>
+
+  </div>
+</form>
+
 
   <div class="large-10 columns">
     <h3>Your Contacts ({{ contacts.length }})</h3>
@@ -71,10 +159,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="contact in contacts">
-          <td><a href="#">{{ contact.fname }} {{ contact.lname }}</a></td>
+          <td><a ng-click="showContact(contact); hideAddForm();">{{ contact.fname }} {{ contact.lname }}</a></td>
           <td>{{ contact.company }}</td>
           <td>{{ contact.email }}</td>
-          <td><a class="button tiny" ng-click="showEditForm(contact)">Edit</a>
+          <td><a class="button tiny" ng-click="showEditForm(contact);">Edit</a>
               <a class="button tiny alert" ng-click="removeContact(contact)">Delete</a></td>
         </tr>
       </tbody>
