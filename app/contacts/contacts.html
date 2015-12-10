@@ -137,9 +137,9 @@
     </div>
 
     <div class="small-4 small-centered columns">
-      <input type="submit" value="Add Contact" class="button success radius" />
+      <input type="submit" value="Edit Contact" class="button success radius" />
 
-      <a class="button alert radius" ng-click="hideAddForm()">Cancel</a>
+      <a class="button alert radius" ng-click="hideEditForm()">Cancel</a>
     </div>
 
   </div>
@@ -159,10 +159,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="contact in contacts">
-          <td><a ng-click="showContact(contact); hideAddForm();">{{ contact.fname }} {{ contact.lname }}</a></td>
+          <td><a ng-click="showContact(contact); hideAddForm(); hideEditForm();">{{ contact.fname }} {{ contact.lname }}</a></td>
           <td>{{ contact.company }}</td>
           <td>{{ contact.email }}</td>
-          <td><a class="button tiny" ng-click="showEditForm(contact);">Edit</a>
+          <td><a class="button tiny" ng-click="showEditForm(contact); hideContactShow();">Edit</a>
               <a class="button tiny alert" ng-click="removeContact(contact)">Delete</a></td>
         </tr>
       </tbody>

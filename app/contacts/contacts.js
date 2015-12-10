@@ -23,14 +23,11 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.addForm = true;
     clearFields();
     $scope.contactShow = false;
+    $scope.editForm = false;
   }
 
   $scope.hideAddForm = function() {
     $scope.addForm = false;
-  }
-
-  $scope.hideContactShow = function() {
-    $scope.contactShow = false;
   }
 
   $scope.addFormSubmit = function() {
@@ -83,6 +80,10 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     });
   }
 
+  $scope.hideContactShow = function() {
+    $scope.contactShow = false;
+  }
+
   $scope.showContact = function(contact) {
     console.log('Get Contact');
 
@@ -100,13 +101,59 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.contactShow = true;
   }
 
+  // Show Edit Form
+  $scope.hideEditForm = function() {
+    $scope.editForm = false;
+  }
+
+  $scope.showEditForm = function(contact) {
+    $scope.editForm = true;
+
+    $scope.id = contact.$id;
+    $scope.fname = contact.fname;
+    $scope.lname = contact.lname;
+    $scope.email = contact.email;
+    $scope.company = contact.company;
+    $scope.work_phone = contact.phones[0].work;
+    $scope.cell_phone = contact.phones[0].cell;
+    $scope.street_address = contact.address[0].street_address;
+    $scope.city = contact.address[0].city;
+    $scope.state = contact.address[0].state;
+    $scope.zipcode = contact.address[0].zipcode;
+  }
+
   // Edit Form
   $scope.editFormSubmit = function() {
     console.log('Updating Contact');
 
+    var id = $scope.id;
+    var record = $scope.contacts.$getRecord(id);
+
+    record.fname = $scope.fname;
+    record.lname = $scope.lname;
+    record.email = $scope.email;
+    record.company = $scope.company;
+    record.phones[0].work = $scope.work_phone;
+    record.phones[0].cell = $scope.cell_phone;
+    record.address[0].street_address = $scope.street_address;
+    record.address[0].city = $scope.city;
+    record.address[0].state = $scope.state;
+    record.address[0].zipcode = $scope.zipcode;
+
+    // Push update
+    $scope.contacts.$save(record).then(function(ref){
+      console.log(ref.key);
+    });
+
+    clearFields();
+
+    $scope.editForm = false;
+
+    $scope.msg = "Edited successfully!"
+
   }
 
-
+  // Clear all fields
   function clearFields(){
     console.log('Clear All Fields');
 
@@ -122,5 +169,13 @@ angular.module('myContacts.contacts', ['ngRoute', 'firebase'])
     $scope.zipcode = '';
   }
 
+  // Remove function
+  $scope.removeContact = function(contact){
+      console.log('Removing Contact');
+
+      $scope.contacts.$remove(contact);
+
+      $scope.msg = "Contact Deleted Successfully";
+  }
 
 }]);
