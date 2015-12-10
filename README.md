@@ -7,7 +7,7 @@ It has full CRUD functionality, and Search function.
 Images of the app:
 
 ======
-### Front Page:
+### Front Page
 ![front-page](http://i.imgur.com/JZpjaBw.jpg)
 
 ======
